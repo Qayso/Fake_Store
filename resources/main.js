@@ -1,5 +1,9 @@
-const url = "https://fakestoreapi.com/"
+//API fakeStore URL
+const url = "https://fakestoreapi.com/";
+const mensClothingURL = "products/category/" + encodeURIComponent("men's clothing");
+const womensClothingURL = "products/category/" + encodeURIComponent("women's clothing");
 
+//Nav Tab variables
 const cartTab = document.getElementById("cartTab");
 const electronicTab = document.getElementById("electronicTab");
 const jeweleryTab = document.getElementById("jeweleryTab");
@@ -7,32 +11,61 @@ const mensClothingTab = document.getElementById("mensClothingTab");
 const womensClothingTab = document.getElementById("womensClothingTab");
 const display = document.getElementById("display");
 
+// fakeStore fetch endpoints
 const fakeStore = async (endPoint) => {
   let result = await fetch(url + endPoint);
   let data = await result.json();
-  return data
+  return data;
 };
 
-// Stuck on the having the event listener run the fakeStore function while utilizing the argument to get different results for each tab
- electronicTab.addEventListener("click", function () {
-  fakeStore('products/category/electronics')
-  
+//! Event Listeners
+
+electronicTab.addEventListener("click", async function () {
+  try {
+    const data = await fakeStore('products/category/electronics');
+    // Handle the data and update the display
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 });
 
-jeweleryTab.addEventListener("click", (e) => {
-  console.log(fakeStore('products/category/jewelery'))
+jeweleryTab.addEventListener("click", async function () {
+  try {
+    const data = await fakeStore('products/category/jewelery');
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 });
 
-mensClothingTab.addEventListener("click", (e) => {
-  console.log(fakeStore('products/category/mensclothing'))
+mensClothingTab.addEventListener("click", async function () {
+  try {
+    const data = await fakeStore(mensClothingURL);
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 });
 
-womensClothingTab.addEventListener("click", (e) => {
-  console.log(fakeStore('products/category/womensclothing'))
+womensClothingTab.addEventListener("click", async function () {
+  try {
+    const data = await fakeStore(womensClothingURL);
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 });
 
-  window.onload = (e) => {
-  fakeStore('products?sort=asc');
-}; 
+// Window onload
+window.onload = async function () {
+  try {
+    const data = await fakeStore('products?sort=asc');
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
-console.log(fakeStore('products?sort=asc'))
+
+
